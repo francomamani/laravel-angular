@@ -3,17 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Publicacion;
 use App\Comentario;
-class ComentarioController extends Controller
+class PublicacionComentarioController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($publicacion_id)
     {
-        return response()->json(Comentario::with('publicacion')->get());
+        $comentarios = Publicacion::find($publicacion_id)->comentarios()->get();
+        return response()->json($comentarios);
     }
 
     /**
@@ -32,10 +34,15 @@ class ComentarioController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $publicacion_id)
     {
-        //
-    }
+        $comentario = Comentario::create([
+                            'publicacion_id' => $publicacion_id, 
+                            'contenido' => $request->input('contenido')
+                        ]);
+        //Comentario::create($request->all());
+        return response()->json($comentario);
+    }   
 
     /**
      * Display the specified resource.

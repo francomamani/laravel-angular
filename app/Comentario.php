@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+//use App\Publicacion;
 class Comentario extends Model
 {
 	protected $table = "comentarios";
@@ -11,4 +11,8 @@ class Comentario extends Model
 		'publicacion_id',		
 		'contenido'		
 	];
+	public function publicacion()
+	{
+		return $this->belongsTo('App\Publicacion');
+	}
 }

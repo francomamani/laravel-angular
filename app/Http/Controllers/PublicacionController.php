@@ -14,7 +14,7 @@ class PublicacionController extends Controller
     public function index()
     {
         //recupera la lista de todos los registro de publicacioones
-        return response()->json(Publicacion::get());
+        return response()->json(Publicacion::orderBy('id', 'desc')->get());
     }
 
     /**
@@ -88,5 +88,52 @@ class PublicacionController extends Controller
         return response()->json([
             'exito' => 'Publicacion eliminada con id: ' . $publicacion->id
         ]);
+    }
+    public function eliminadosLogicamente()
+    {
+        return response()->json(Publicacion::onlyTrashed()->get());
+    }
+    public function getAll()
+    {
+        return response()->json(Publicacion::withTrashed()->get());
+    }
+    public function eliminadoLogicamente($id)
+    {
+        $publicacion = Publicacion::withTrashed()->find($id);
+        if ($publicacion->trashed()) {
+            return response()->json([
+                'eliminado' => true 
+            ]);
+        }else{
+            return response()->json([
+                'eliminado' => false 
+            ]);            
+        }
+    }
+    public function restaurar($id)
+    {
+        $publicacion = Publicacion::onlyTrashed()->find($id);
+        $publicacion->restore();
+        return response()->json($publicacion);            
+    }
+
+    public function paginacion()
+    {
+        return response()->json(Publicacion::paginate(4));            
+    }
+
+    public function porTitulo($titulo)
+    {
+        return response()->json(Publicacion::where('titulo', $titulo)->get());            
+    }
+    public function porContenido($contenido)
+    {
+        $publicaciones = Publicacion::where('contenido', 'like', '%' . $contenido . '%')->get();
+        return response()->json($publicaciones);            
+    }
+    public function entreFechas($inicio, $fin)
+    {
+        $publicaciones = Publicacion::whereBetween('created_at', [$inicio, $fin])->get();
+        return response()->json($publicaciones);
     }
 }

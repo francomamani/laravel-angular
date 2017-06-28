@@ -17,6 +17,7 @@ class Publicaciones extends Migration
             $table->increments('id');
             $table->string('titulo', 100);
             $table->string('contenido');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
