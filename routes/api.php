@@ -30,3 +30,18 @@ Route::get('publicaciones_fechas/{inicio}/{fin}', 'PublicacionController@entreFe
 
 Route::resource('publicaciones.comentarios', 'PublicacionComentarioController');
 Route::resource('comentarios', 'ComentarioController');
+Route::get('num_comentarios/{publicacion_id}', 'PublicacionComentarioController@numComentarios');
+Route::get('suma/{publicacion_id}', 'PublicacionComentarioController@sumPublicacionComentarioId');
+Route::get('promedio/{publicacion_id}', 'PublicacionComentarioController@promedio');
+//150 X
+//15 bien
+Route::get('sumar/{a}/{b?}', function($a, $b = 5) {
+	return $a + $b;
+})->where(['a'=>'\d{1,2}', 'b'=>'\d{1,2}']);
+Route::get('es_numero/{cadena}', 'ExpRegularesController@esNumero');
+Route::get('es_email/{cadena}', 'ExpRegularesController@esCorreoElectronico');
+Route::get('es_decimal/{cadena}', 'ExpRegularesController@esDecimal');
+Route::get('es_fecha/{cadena}', 'ExpRegularesController@esFecha');
+Route::get('es_hora/{cadena}', 'ExpRegularesController@esHora');
+
+
