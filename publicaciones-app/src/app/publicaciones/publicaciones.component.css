@@ -1,0 +1,20 @@
+.publicacion{
+	padding: 1em 0;
+	border-radius: 25px;
+}
+.comentario{
+	list-style-type: none;
+	padding: 0;
+}
+.comentario > li{
+	padding: 1em;
+	border-bottom: 1px solid lightgray;
+}
+.avatar{
+	width: 75px;
+	height: 75px;
+	box-shadow: 0 0 10px red;
+	border-radius: 100%;
+	padding: .8em;
+	background-color: #FEB9B9;
+}

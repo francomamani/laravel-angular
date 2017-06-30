@@ -1,0 +1,41 @@
+<form role="form" class="publicacion">
+	<div class="row">
+		<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+			<img src="favicon.ico" class="avatar">
+		</div>
+		<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+			<div class="form-group">
+				<label>Titulo</label>
+				<input type="text" value="{{publicacion1.titulo}}" 
+						class="form-control" 
+						pattern="[A-Z]+"
+						title="SOLO SE ADMITEN MAYUSCULAS" 
+						required autofocus>
+			</div>
+		</div>
+	</div>
+	<div class="form-group">
+		<label>Contenido</label>
+		<input placeholder="Que piensas..." value="{{ publicacion1.contenido }}" 
+			class="form-control" 
+			pattern="[A-Za-z0-9_ ]+"
+			required>				
+	</div>
+	<div class="text-right">
+		<button type="submit" class="btn btn-primary">Publicar</button>
+	</div>
+</form>
+<div class="publicacion-componente" *ngFor="let publicacion of publicaciones">
+	<h3>{{publicacion.titulo}}</h3>
+	<p>
+		{{ publicacion.contenido }}
+	</p>
+	<ul class="comentario">
+		<li>comentario 1</li>
+		<li>comentario 2</li>
+		<li>comentario 3</li>
+		<li>comentario 4</li>
+		<li>comentario 5</li>
+	</ul>
+	<app-comentarios></app-comentarios>
+</div>
