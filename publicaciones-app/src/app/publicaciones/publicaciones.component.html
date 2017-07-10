@@ -1,4 +1,4 @@
-<form role="form" class="publicacion">
+<form #publicacionForm = "ngForm" role="form" class="publicacion">
 	<div class="row">
 		<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
 			<img src="favicon.ico" class="avatar">
@@ -6,7 +6,9 @@
 		<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
 			<div class="form-group">
 				<label>Titulo</label>
-				<input type="text" value="{{publicacion1.titulo}}" 
+				<input type="text" 
+						[(ngModel)]="publicacion1.titulo"
+						name="titulo"
 						class="form-control" 
 						pattern="[A-Z]+"
 						title="SOLO SE ADMITEN MAYUSCULAS" 
@@ -16,26 +18,47 @@
 	</div>
 	<div class="form-group">
 		<label>Contenido</label>
-		<input placeholder="Que piensas..." value="{{ publicacion1.contenido }}" 
+		<input placeholder="Que piensas..." 
+			[(ngModel)]="publicacion1.contenido"
+			name="contenido"
 			class="form-control" 
 			pattern="[A-Za-z0-9_ ]+"
 			required>				
 	</div>
 	<div class="text-right">
-		<button type="submit" class="btn btn-primary">Publicar</button>
+		<button type="submit" class="btn btn-primary" (click)="guardarPublicacion();publicacionForm.reset()">Publicar</button>
 	</div>
 </form>
 <div class="publicacion-componente" *ngFor="let publicacion of publicaciones">
-	<h3>{{publicacion.titulo}}</h3>
+	<h3>{{ publicacion.titulo}}</h3>
 	<p>
 		{{ publicacion.contenido }}
 	</p>
-	<ul class="comentario">
-		<li>comentario 1</li>
-		<li>comentario 2</li>
-		<li>comentario 3</li>
-		<li>comentario 4</li>
-		<li>comentario 5</li>
+	<button class="btn btn-primary btn-sm" 
+			(click)="getComentariosByPublicacionId(publicacion)">Mostrar comentarios</button>
+	<ul>
+		<li *ngFor="let c of publicacion.listaComentarios">
+			{{ c.contenido }}
+		</li>
 	</ul>
-	<app-comentarios></app-comentarios>
+<!-- 	<app-comentarios></app-comentarios> -->
+
+	<form #comentarForm = "ngForm" role="form">
+		<div class="row">
+			<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+				<div class="form-group">
+					<input type="text" class="form-control long"
+							 [(ngModel)]="publicacion.contenidoInput" 
+							 name="contenidoInput"
+							 placeholder="Contenido">
+				</div>			
+			</div>
+			<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-right">
+				<button type="submit" class="btn btn-primary" 
+						(click)="guardar(publicacion.id, publicacion.contenidoInput);comentarForm.reset()" 
+						>Comentar</button>
+			</div>
+		</div>
+	</form>
+
 </div>
