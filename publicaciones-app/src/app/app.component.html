@@ -1,3 +1,6 @@
 <div class="container">
-  <app-publicaciones> </app-publicaciones>
+	<a routerLink="/inicio" routerLinkActive="active">Inicio</a>
+	<a [routerLink]="['/publicaciones']">Publicaciones</a>
+	<a href="">Cerrar Sesion</a>
+	<router-outlet></router-outlet>
 </div>

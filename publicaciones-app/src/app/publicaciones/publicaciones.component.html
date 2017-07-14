@@ -39,9 +39,12 @@
 	<ul>
 		<li *ngFor="let c of publicacion.listaComentarios">
 			{{ c.contenido }}
+			<a 	class="btn btn-xs btn-success" 
+				[routerLink]="['/comentario-edicion/'+publicacion.id+'/'+c.id+'/'+c.contenido]">Editar</a>
+			<button class="btn btn-xs btn-danger" 
+					(click)="deleteComentarioByPublicacionId(publicacion.id, c.id, publicacion.listaComentarios)">X</button>
 		</li>
 	</ul>
-<!-- 	<app-comentarios></app-comentarios> -->
 
 	<form #comentarForm = "ngForm" role="form">
 		<div class="row">
@@ -55,10 +58,11 @@
 			</div>
 			<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-right">
 				<button type="submit" class="btn btn-primary" 
-						(click)="guardar(publicacion.id, publicacion.contenidoInput);comentarForm.reset()" 
+						(click)="guardar(publicacion.id, 
+										 publicacion.contenidoInput, 
+										 publicacion.listaComentarios);comentarForm.reset()" 
 						>Comentar</button>
 			</div>
 		</div>
 	</form>
-
 </div>

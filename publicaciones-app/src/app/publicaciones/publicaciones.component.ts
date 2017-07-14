@@ -24,6 +24,13 @@ export class PublicacionesComponent implements OnInit {
     contenidoInput: ""
   }
 
+  publicacion_id: number = 0;
+  selectedComentario: Comentario = {
+    id: 0,
+    publicacion_id: 0,    
+    contenido: ""
+  };
+  editando:boolean = false;
 /*  publicaciones : Publicacion[] = [
   	{ titulo: "t1", contenido: "contenido1"},
   	{ titulo: "t2", contenido: "contenido2"},
@@ -35,7 +42,8 @@ export class PublicacionesComponent implements OnInit {
               private comentariosService: ComentariosService) { }
 
   ngOnInit() {	
-   this.publicacionesService.index().subscribe(data => this.publicaciones = data);
+    this.publicacionesService.index()
+                             .subscribe(data => this.publicaciones = data);
   }
 
   guardarPublicacion(){
@@ -46,11 +54,15 @@ export class PublicacionesComponent implements OnInit {
           console.log(res);
         });
   }
-  guardar(publicacion_id, contenido){
-    let comentario = new Comentario(publicacion_id, contenido);
+  guardar(publicacion_id, contenido, listaComentarios){
+    let id:number = 0;
+    let comentario = new Comentario(id, publicacion_id, contenido);
     this.comentariosService
         .storeComentario(publicacion_id, comentario)
-        .subscribe(res => console.log(res));
+        .subscribe(
+          (res:Comentario) => {
+           listaComentarios.push(res);
+        });
   }
   getComentariosByPublicacionId(publicacion:Publicacion){
     this.publicacionesService
@@ -59,4 +71,27 @@ export class PublicacionesComponent implements OnInit {
           publicacion.listaComentarios = comentarios;
         });        
   }
+
+  deleteComentarioByPublicacionId( publicacion_id: number,
+                                   comentario_id: number,
+                                   listaComentarios){
+    this.comentariosService
+        .deleteComentario(publicacion_id, comentario_id)
+        .subscribe(res => {
+          const posicion  = listaComentarios.findIndex( item => {
+                                              console.log("comentarioID: "+ item.id);
+                                              console.log("comentarioParam: "+ comentario_id);
+                                              return item.id == comentario_id; 
+                                            });
+          console.log(posicion);
+          listaComentarios.splice(posicion, 1);
+          console.log(res);
+        });
+  }
+
+
+
+
+
+
 }

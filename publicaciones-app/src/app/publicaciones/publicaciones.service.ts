@@ -20,15 +20,15 @@ export class PublicacionesService {
   getComentariosByPublicacionId(publicacion_id){
   	return this.http.get(this.base+'publicaciones/'+publicacion_id+'/comentarios')
   					.map(res => res.json().map(comentario => {
-  						return new Comentario(comentario.publicacion_id, comentario.contenido);
+  						return new Comentario(comentario.id, comentario.publicacion_id, comentario.contenido);
   					}));
   }
-    id: number;
+/*  id: number;
   titulo: string;
   contenido: string;
   created_at: Date;
   listaComentarios: any[];
-  contenidoInput: string;
+  contenidoInput: string;*/
 
   storePublicacion(publicacion){
     return this.http.post(this.base+'publicaciones', publicacion)
