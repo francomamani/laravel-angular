@@ -5,7 +5,6 @@ export class Publicacion {
 	created_at: Date;
 	listaComentarios: any[];
 	contenidoInput: string;
-
 	constructor(id, titulo, contenido, created_at, listaComentarios = [], contenidoInput = ""){
 		this.id = id;
 		this.titulo = titulo;

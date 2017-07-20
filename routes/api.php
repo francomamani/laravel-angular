@@ -19,7 +19,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 //*URI - uniform resource Identifier - GET POST PUT DELETE
 //URL - Uniform Resource Location - GET
 
-//Route::group(['middleware' => 'cors'], function(){
+
+
+Route::post('autenticar', 'AutenticacionController@autenticar');
+Route::post('registrar', 'AutenticacionController@registrar');
+
+Route::group(['middleware' => 'jwt-auth'], function(){
+
 	Route::resource('publicaciones', 'PublicacionController');
 	Route::get('publicaciones_eliminadas', 'PublicacionController@eliminadosLogicamente');
 	Route::get('publicaciones_todo', 'PublicacionController@getAll');
@@ -35,7 +41,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 	Route::get('num_comentarios/{publicacion_id}', 'PublicacionComentarioController@numComentarios');
 	Route::get('suma/{publicacion_id}', 'PublicacionComentarioController@sumPublicacionComentarioId');
 	Route::get('promedio/{publicacion_id}', 'PublicacionComentarioController@promedio');
-//});
+
+
+});
 //150 X
 //15 bien
 Route::get('sumar/{a}/{b?}', function($a, $b = 5) {

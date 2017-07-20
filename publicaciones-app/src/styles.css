@@ -5,4 +5,12 @@ body{
 a{
 	cursor: pointer;
 }
-
+.loading{
+	/*
+		1em = 12px
+	*/
+	font-size: 4em;
+	margin-top: 45vh;
+	color: #4F4D4D;
+	text-align: center;
+}

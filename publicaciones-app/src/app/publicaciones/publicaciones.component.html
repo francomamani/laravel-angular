@@ -30,9 +30,10 @@
 	</div>
 </form>
 <div class="publicacion-componente" *ngFor="let publicacion of publicaciones">
-	<h3>{{ publicacion.titulo}}</h3>
+	<h3>{{ publicacion.titulo | lowercase }}</h3>
+	<h5>{{ publicacion.created_at | date: "shortDate" }}</h5>
 	<p>
-		{{ publicacion.contenido }}
+		{{ publicacion.contenido | lowercase }}
 	</p>
 	<button class="btn btn-primary btn-sm" 
 			(click)="getComentariosByPublicacionId(publicacion)">Mostrar comentarios</button>

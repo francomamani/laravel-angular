@@ -1,0 +1,35 @@
+
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<form (submit)="agregar(f)" #f="ngForm"  role="form">
+				<legend>Form title</legend>
+			
+				<div class="form-group">
+					<label>Nombre</label>
+					<input type="text" class="form-control" name="nombre" ngModel required>
+				</div>
+				<div class="form-group">
+					<label>Edad</label>
+					<input type="text" class="form-control" name="edad" ngModel required>
+				</div>
+				<button class="btn btn-primary" >  Enviar</button>
+			</form>
+		</div>
+	</div>
+
+	<input type="text" class="form-control" name="busqueda" [(ngModel)]="busqueda">
+	<button (click)="filtrarNombre(busqueda)">Buscar</button>
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th>nombre</th>
+			<th>edad</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let p of personas">
+			<td>{{ p.nombre }}</td>
+			<td>{{ p.edad }}</td>
+		</tr>
+	</tbody>
+</table>
