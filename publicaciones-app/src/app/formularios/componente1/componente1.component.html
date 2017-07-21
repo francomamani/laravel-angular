@@ -1,0 +1,5 @@
+
+<app-show *ngFor="let persona of personas"
+		[persona]="persona"
+		(eliminarPersona)="deletePanel($event)"
+		></app-show>

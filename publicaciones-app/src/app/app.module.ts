@@ -12,6 +12,11 @@ import { ComentariosService } from './comentarios/comentarios.service';
 import { LoginComponent } from './login/login.component'; 
 import { AuthGuard } from './auth.guard';
 import { FormulariosComponent } from './formularios/formularios.component';
+import { Componente1Component } from './formularios/componente1/componente1.component';
+import { Componente2Component } from './formularios/componente2/componente2.component';
+import { CrearComponent } from './formularios/componente2/crear/crear.component';
+import { ListarComponent } from './formularios/componente2/listar/listar.component';
+import { ShowComponent } from './componente1/show/show.component';
 const appRoutes: Routes = [
   {
     path: '', 
@@ -36,7 +41,17 @@ const appRoutes: Routes = [
      canActivate: [AuthGuard]
   },  
   {  path: 'formularios',
-     component: FormulariosComponent
+     component: FormulariosComponent, 
+     children: [
+       { path: '', component: Componente1Component },
+       { 
+         path: 'componente2/:parametro', component: Componente2Component,
+         children: [
+           { path: 'crear', component: CrearComponent},
+           { path: 'listar', component: ListarComponent },
+         ] 
+       }
+     ]
   },  
   { path: '**', component: PageNotFoundComponent }
 ];
@@ -49,7 +64,12 @@ const appRoutes: Routes = [
     ComentarioEditComponent,
     PageNotFoundComponent,
     LoginComponent,
-    FormulariosComponent
+    FormulariosComponent,
+    Componente1Component,
+    Componente2Component,
+    CrearComponent,
+    ListarComponent,
+    ShowComponent
   ],
   imports: [
     BrowserModule,
